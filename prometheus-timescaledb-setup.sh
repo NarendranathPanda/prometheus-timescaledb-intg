@@ -34,7 +34,7 @@ timescale/prometheus-postgresql-adapter:latest \
 -pg-prometheus-log-samples	
 
 //  create metric collection target: node_exporter  
-docker run --network prometheus_timescale_network --name node_exporter -p 9100:9100 quay.io/prometheus/node-exporter
+docker run -d --network prometheus_timescale_network --name node_exporter -p 9100:9100 quay.io/prometheus/node-exporter
 
 // Create Prometheus container and fix the prometheus.yaml 
 vi prometheus.yaml
@@ -52,8 +52,7 @@ remote_read:
  - url: "http://prometheus_postgresql_adapter:9201/read"
 
 // ========================================
-docker run --network prometheus_timescale_network -p 9090:9090 -v ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml \
-      prom/prometheus
+docker run -d --network prometheus_timescale_network -p 9090:9090 -v ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 	  
 // Testing / Demo time 
 
@@ -77,7 +76,8 @@ psql postgres postgres
 //list of tables
 \dt
 
+// metadata metrics_tables 
 \d metrics_values
 
-//sample table 
+//sample metrics 
 SELECT time, value AS "total transmitted bytes" FROM metrics WHERE labels->>'device' = 'eth0' AND name='node_network_transmit_bytes_total' ORDER BY time;
