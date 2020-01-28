@@ -52,7 +52,7 @@ remote_read:
  - url: "http://prometheus_postgresql_adapter:9201/read"
 
 // ========================================
-docker run --network prometheus_timescale_network -p 9090:9090 -v ${pwd}/prometheus.yml:/etc/prometheus/prometheus.yml \
+docker run --network prometheus_timescale_network -p 9090:9090 -v ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml \
       prom/prometheus
 	  
 // Testing / Demo time 
@@ -77,22 +77,7 @@ psql postgres postgres
 //list of tables
 \dt
 
-//Sample out put  
-
 \d metrics_values
-// 
-//                      Table "public.metrics_values" 
-// Column   |           Type           | Collation | Nullable | Default
-// -----------+--------------------------+-----------+----------+---------
-//  time      | timestamp with time zone |           | not null |
-//  value     | double precision         |           |          |
-//  labels_id | integer                  |           |          |
-// Indexes:
-//    "metrics_values_labels_id_idx" btree (labels_id, "time" DESC)
-//     "metrics_values_time_idx" btree ("time" DESC)
-//  Triggers:
-//     ts_insert_blocker BEFORE INSERT ON metrics_values FOR EACH ROW EXECUTE PROCEDURE _timescaledb_internal.insert_blocker()
-// Number of child tables: 1 (Use \d+ to list them.)
 
 //sample table 
 SELECT time, value AS "total transmitted bytes" FROM metrics WHERE labels->>'device' = 'eth0' AND name='node_network_transmit_bytes_total' ORDER BY time;
