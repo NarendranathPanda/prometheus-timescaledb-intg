@@ -19,6 +19,7 @@ ref : https://improbable.io/blog/thanos-prometheus-at-scale
 
 ## Docker installation 
 ref : https://docs.docker.com/install/linux/docker-ce/centos/
-
+## Remote storage integrations
 ![Remote storage integrations](/prom-remote-storage.PNG)
- ![How to use TimescaleDB with Prometheus](/timescaledb-prom-setup.PNG)
+## How to use TimescaleDB with Prometheus
+![How to use TimescaleDB with Prometheus](/timescaledb-prom-setup.PNG)
