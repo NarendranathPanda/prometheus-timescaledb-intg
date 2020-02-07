@@ -24,7 +24,7 @@ docker network create -d bridge prometheus_timescale_network
 // create remote pg timescale DB 
 docker run --network prometheus_timescale_network  --name pg_prometheus \
      -e POSTGRES_PASSWORD=secret -d -p 5432:5432 timescale/pg_prometheus:latest-pg11 postgres \
-     -csynchronous_commit=off
+     -c synchronous_commit=off
 
 // create pg adapter container
 docker run --network prometheus_timescale_network --name prometheus_postgresql_adapter -d -p 9201:9201 \
